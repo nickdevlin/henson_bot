@@ -47,14 +47,11 @@ football_teams_and_home_parks = {
 	"Padres": ["San Diego Chargers", "Petco Park"]
 }
 
-# now = datetime.datetime.now()
-# print(now.year)
-# print(now.month)
-# print(now.day)
+yesterday = datetime.datetime.now() - timedelta(days=1)
  
 football_games = []
 
-day = mlbgame.day(2017, 4, 10)
+day = mlbgame.day(yesterday.year, yesterday.month, yesterday.day)
 for game in day:
   if game.home_team_runs in football_scores and game.away_team_runs in football_scores and game.home_team_runs != game.away_team_runs:
     ballpark = football_teams_and_home_parks[game.home_team][1]
@@ -66,7 +63,7 @@ for game in day:
     else: 
       winner = football_teams_and_home_parks[game.away_team][0]
       loser = football_teams_and_home_parks[game.home_team][0]
-    football_games.append("April 10: A football game broke out at {}! The {} beat the {}, {} to {}.".format(ballpark, winner, loser, big_score, little_score))
+    football_games.append("A football game broke out at {}! The {} beat the {}, {} to {}.".format(ballpark, winner, loser, big_score, little_score))
 
 for line in football_games:
     api.update_status(line)
